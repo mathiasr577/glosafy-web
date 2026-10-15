@@ -168,3 +168,4 @@ section h2 { font-size: var(--fs-h2); margin-bottom: var(--s-3); max-width: 46re
 .card-demo { margin: 0; }
 .hero-grid > * { min-width: 0; }
 .cite { overflow-wrap: anywhere; }
+.cta .small-note { font-size: 0.95rem; margin-top: var(--s-1); }
