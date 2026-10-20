@@ -169,3 +169,10 @@ section h2 { font-size: var(--fs-h2); margin-bottom: var(--s-3); max-width: 46re
 .hero-grid > * { min-width: 0; }
 .cite { overflow-wrap: anywhere; }
 .cta .small-note { font-size: 0.95rem; margin-top: var(--s-1); }
+
+/* herramientas */
+.tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--s-2); margin-top: var(--s-4); }
+.tool { display: block; text-decoration: none; color: var(--text); background: var(--paper); border: 1px solid #CFD9D3; border-radius: var(--radius); padding: var(--s-3); transition: transform .15s ease, border-color .15s ease; }
+.tool:hover { transform: translateY(-2px); border-color: var(--teal); }
+.tool h3 { font-size: 1.1rem; color: var(--teal); margin-bottom: var(--s-1); }
+.tool p { color: var(--text-2); font-size: 0.95rem; }

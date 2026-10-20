@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://glosafy.com/herramientas/guia-glosas">
+<style>@font-face{font-family:"Space Grotesk";src:url("/fonts/SpaceGrotesk-latin.woff2") format("woff2");font-weight:500 700;font-display:swap}@font-face{font-family:"DM Sans";src:url("/fonts/DMSans-latin.woff2") format("woff2");font-weight:400 700;font-display:swap}.marca a{color:inherit;text-decoration:none}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía de respuesta por causa de glosa · Glosafy</title>
+<meta name="description" content="Cómo responder cada tipo de glosa, con qué prueba y cómo prevenirla.">
+<style>
+:root { --navy:#13263B; --cream:#F5F3EE; --paper:#FFFDF8; --teal:#17735E; --mint:#EAF0EC; --orange:#C4621F;
+        --muted:#5F6B76; --line:#DCD8CE; --ok:#17735E; --mal:#B4471A; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --navy:#E8EDF2; --cream:#0F1A26; --paper:#152333; --teal:#4FB89A; --mint:#1C3140;
+        --orange:#F0955A; --muted:#A3AFBB; --line:#2A3B4D; --ok:#4FB89A; --mal:#F0955A; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--cream); color:var(--navy); font:16px/1.55 "DM Sans", system-ui, Arial, sans-serif; }
+main { max-width:680px; margin:0 auto; padding:32px 16px 56px; }
+.marca { font:700 22px "Space Grotesk", system-ui, Arial, sans-serif; color:var(--teal); }
+h1 { font:700 28px/1.2 "Space Grotesk", system-ui, Arial, sans-serif; margin:16px 0 6px; }
+.sub { color:var(--muted); margin:0 0 18px; }
+.tarjeta { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:20px; margin-top:16px; }
+label { display:block; font-weight:600; margin:12px 0 6px; }
+label small { font-weight:400; color:var(--muted); }
+input[type=date] { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:var(--cream);
+                   color:var(--navy); font:inherit; }
+.res { display:grid; gap:10px; }
+.fila { border-left:4px solid var(--teal); background:var(--mint); border-radius:8px; padding:12px 14px; }
+.fila.mal { border-left-color:var(--mal); }
+.fila b { display:block; font-size:18px; }
+.fila span { color:var(--muted); font-size:14px; }
+.cta { background:var(--navy); color:var(--cream); border-radius:14px; padding:18px 20px; margin-top:16px; }
+.cta a { color:inherit; font-weight:700; }
+.nota { color:var(--muted); font-size:13px; margin-top:18px; }
+
+nav.herr { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 0; font-size:14px; }
+nav.herr a { color:var(--teal); text-decoration:none; border:1px solid var(--line); border-radius:99px; padding:4px 12px; background:var(--paper); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px; margin-top:16px; }
+.grid a { display:block; text-decoration:none; color:inherit; background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px; }
+.grid a b { display:block; font-size:18px; color:var(--teal); margin-bottom:4px; }
+input[type=number], input[type=file] { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:var(--cream); color:var(--navy); font:inherit; }
+table { width:100%; border-collapse:collapse; font-size:14px; } th, td { text-align:left; padding:7px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+h2 { font:700 20px "Space Grotesk", system-ui, Arial, sans-serif; margin:26px 0 8px; }
+details { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin:10px 0; }
+summary { font-weight:700; cursor:pointer; } details p, details li { color:var(--navy); }
+</style>
+</head>
+<body>
+<main>
+  <div class="marca"><a href="/" aria-label="Glosafy, inicio">Glosafy</a></div>
+  <nav class="herr"><a href="/herramientas">Todas</a><a href="/herramientas/calculadora">Plazos</a><a href="/herramientas/validador-rips">Validador de RIPS</a><a href="/herramientas/costo-glosas">Costo de las glosas</a><a href="/herramientas/guia-glosas">Guía de respuesta</a></nav>
+
+  <h1>Guía de respuesta por causa de glosa</h1>
+  <p class="sub">Qué es cada causa, cómo se responde, con qué prueba, qué error evitar y cómo prevenirla. Orientativa: cada caso depende del contrato y de la norma vigente.</p>
+  <details><summary>Extemporaneidad (la EPS glosó tarde)</summary><p><b>Qué es:</b> La EPS tiene 20 días hábiles desde la radicación para glosar (Ley 1438 de 2011, art. 57).</p><p><b>Cómo se responde:</b> Responder dentro de los 15 días hábiles alegando la extemporaneidad, con el acuse de radicación, la comunicación de glosa y el cálculo de días hábiles. No hace falta discutir el fondo.</p><p><b>Error frecuente:</b> Dejar pasar el plazo de respuesta aunque la glosa sea extemporánea.</p><p><b>Cómo prevenirla:</b> Guardar siempre el número y la fecha de radicación (desde la Res. 948 de 2026, el pagador la reporta al SIIFA).</p></details>
+  <details><summary>Facturación (FA)</summary><p><b>Qué es:</b> Diferencias entre la factura, el RIPS y lo prestado: códigos, cantidades, valores, duplicados.</p><p><b>Cómo se responde:</b> Mostrar que factura y RIPS coinciden ítem por ítem; si un servicio se repite, demostrar con la historia clínica que fueron atenciones distintas.</p><p><b>Error frecuente:</b> Aceptar un «cobro duplicado» sin revisar las fechas y horas de cada atención.</p><p><b>Cómo prevenirla:</b> Conciliar factura y RIPS antes de radicar.</p></details>
+  <details><summary>Tarifas (TA)</summary><p><b>Qué es:</b> El valor facturado supera la tarifa pactada en el contrato.</p><p><b>Cómo se responde:</b> Citar la tarifa del contrato (o del manual base con su ajuste) y el valor facturado; si hay diferencia real, aceptar solo esa diferencia.</p><p><b>Error frecuente:</b> Aceptar la glosa completa cuando la diferencia es menor.</p><p><b>Cómo prevenirla:</b> Cargar las tarifas pactadas y facturar contra ellas; identificar el contrato por su CUCON.</p></details>
+  <details><summary>Soportes (SO)</summary><p><b>Qué es:</b> Falta un soporte o una firma.</p><p><b>Cómo se responde:</b> Ubicar el documento radicado y citarlo con archivo, página y firma. Si la EPS pide un soporte que la norma no exige, la glosa es improcedente (Res. 948 de 2026; Anexo Técnico 1 de la Res. 2284 de 2023).</p><p><b>Error frecuente:</b> Responder «se adjunta» sin decir dónde está la prueba.</p><p><b>Cómo prevenirla:</b> Lista de soportes por tipo de servicio antes de radicar.</p></details>
+  <details><summary>Autorización (AU)</summary><p><b>Qué es:</b> El servicio no tenía autorización, no estaba vigente o no lo cubría.</p><p><b>Cómo se responde:</b> Citar la autorización, su vigencia y lo que cubre; mostrar que el contrato no exige autorización para ese servicio. Desde el 1 de junio de 2026 no se puede exigir autorización para medicamentos (validar con su asesor).</p><p><b>Error frecuente:</b> No revisar si el contrato realmente exigía la autorización.</p><p><b>Cómo prevenirla:</b> Verificar la autorización antes de prestar el servicio.</p></details>
+  <details><summary>Cobertura (CO)</summary><p><b>Qué es:</b> El servicio no estaría cubierto por el plan o el contrato.</p><p><b>Cómo se responde:</b> Mostrar que el servicio tiene tarifa pactada, no está en las exclusiones y se prestó durante la vigencia.</p><p><b>Error frecuente:</b> Aceptar sin leer las exclusiones del contrato.</p><p><b>Cómo prevenirla:</b> Validar cobertura y exclusiones antes de facturar.</p></details>
+  <details><summary>Pertinencia médica (CL)</summary><p><b>Qué es:</b> La EPS considera que el servicio o la estancia no se justificaba clínicamente.</p><p><b>Cómo se responde:</b> Concepto de un médico auditor con los hallazgos de la historia clínica (fecha y hora) y la guía de práctica clínica aplicable.</p><p><b>Error frecuente:</b> Responder con un texto genérico sin citar la historia clínica.</p><p><b>Cómo prevenirla:</b> Registrar en la historia los criterios que justifican cada estancia y procedimiento.</p></details>
+  <details><summary>Devolución (DE)</summary><p><b>Qué es:</b> La factura entera se devuelve: falta CUV, error de estructura o de pagador.</p><p><b>Cómo se responde:</b> Corregir y volver a radicar; si la devolución no tiene fundamento, responderla con la prueba.</p><p><b>Error frecuente:</b> Corregir sin entender por qué el Ministerio rechazó el RIPS.</p><p><b>Cómo prevenirla:</b> Validar el RIPS antes de enviarlo (use el validador gratis).</p></details>
+  <p class="sub">Plazos de referencia: 20 días hábiles para glosar, 15 para responder y 10 para que el pagador decida (Ley 1438 de 2011, art. 57). Calcúlelos con la <a href="/herramientas/calculadora">calculadora de plazos</a>.</p>
+  <div class="cta">¿Prefiere que lo hagamos por usted? Le hacemos un <b>diagnóstico gratis</b> con su listado de glosas, sin datos de pacientes, en 24 a 48 horas. Escríbanos a <a href="mailto:hola@glosafy.com">hola@glosafy.com</a>.</div>
+  <p class="nota">Herramienta gratuita y orientativa de Glosafy. Funciona dentro de su navegador: no envía ni guarda ningún dato. No es asesoría legal.</p>
+</main>
+
+</body>
+</html>

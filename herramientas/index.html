@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://glosafy.com/herramientas/">
+<style>@font-face{font-family:"Space Grotesk";src:url("/fonts/SpaceGrotesk-latin.woff2") format("woff2");font-weight:500 700;font-display:swap}@font-face{font-family:"DM Sans";src:url("/fonts/DMSans-latin.woff2") format("woff2");font-weight:400 700;font-display:swap}.marca a{color:inherit;text-decoration:none}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herramientas gratis para glosas · Glosafy</title>
+<meta name="description" content="Herramientas gratuitas para clínicas: plazos de glosas, validador de RIPS, costo de las glosas y guía de respuesta.">
+<style>
+:root { --navy:#13263B; --cream:#F5F3EE; --paper:#FFFDF8; --teal:#17735E; --mint:#EAF0EC; --orange:#C4621F;
+        --muted:#5F6B76; --line:#DCD8CE; --ok:#17735E; --mal:#B4471A; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --navy:#E8EDF2; --cream:#0F1A26; --paper:#152333; --teal:#4FB89A; --mint:#1C3140;
+        --orange:#F0955A; --muted:#A3AFBB; --line:#2A3B4D; --ok:#4FB89A; --mal:#F0955A; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--cream); color:var(--navy); font:16px/1.55 "DM Sans", system-ui, Arial, sans-serif; }
+main { max-width:680px; margin:0 auto; padding:32px 16px 56px; }
+.marca { font:700 22px "Space Grotesk", system-ui, Arial, sans-serif; color:var(--teal); }
+h1 { font:700 28px/1.2 "Space Grotesk", system-ui, Arial, sans-serif; margin:16px 0 6px; }
+.sub { color:var(--muted); margin:0 0 18px; }
+.tarjeta { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:20px; margin-top:16px; }
+label { display:block; font-weight:600; margin:12px 0 6px; }
+label small { font-weight:400; color:var(--muted); }
+input[type=date] { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:var(--cream);
+                   color:var(--navy); font:inherit; }
+.res { display:grid; gap:10px; }
+.fila { border-left:4px solid var(--teal); background:var(--mint); border-radius:8px; padding:12px 14px; }
+.fila.mal { border-left-color:var(--mal); }
+.fila b { display:block; font-size:18px; }
+.fila span { color:var(--muted); font-size:14px; }
+.cta { background:var(--navy); color:var(--cream); border-radius:14px; padding:18px 20px; margin-top:16px; }
+.cta a { color:inherit; font-weight:700; }
+.nota { color:var(--muted); font-size:13px; margin-top:18px; }
+
+nav.herr { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 0; font-size:14px; }
+nav.herr a { color:var(--teal); text-decoration:none; border:1px solid var(--line); border-radius:99px; padding:4px 12px; background:var(--paper); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px; margin-top:16px; }
+.grid a { display:block; text-decoration:none; color:inherit; background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px; }
+.grid a b { display:block; font-size:18px; color:var(--teal); margin-bottom:4px; }
+input[type=number], input[type=file] { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:var(--cream); color:var(--navy); font:inherit; }
+table { width:100%; border-collapse:collapse; font-size:14px; } th, td { text-align:left; padding:7px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+h2 { font:700 20px "Space Grotesk", system-ui, Arial, sans-serif; margin:26px 0 8px; }
+details { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin:10px 0; }
+summary { font-weight:700; cursor:pointer; } details p, details li { color:var(--navy); }
+</style>
+</head>
+<body>
+<main>
+  <div class="marca"><a href="/" aria-label="Glosafy, inicio">Glosafy</a></div>
+  <nav class="herr"><a href="/herramientas">Todas</a><a href="/herramientas/calculadora">Plazos</a><a href="/herramientas/validador-rips">Validador de RIPS</a><a href="/herramientas/costo-glosas">Costo de las glosas</a><a href="/herramientas/guia-glosas">Guía de respuesta</a></nav>
+
+  <h1>Herramientas gratis para su equipo de cuentas médicas</h1>
+  <p class="sub">Para que su clínica pierda menos plata en glosas. Todo funciona en su navegador: ningún dato sale de su computador.</p>
+  <div class="grid">
+    <a href="/herramientas/calculadora"><b>Calculadora de plazos</b>¿La EPS glosó fuera de plazo? ¿Hasta cuándo puede responder? En días hábiles, con festivos.</a>
+    <a href="/herramientas/validador-rips"><b>Validador de RIPS</b>Revise su RIPS antes de enviarlo al Ministerio: las reglas que más rechazan desde la Res. 948 de 2026.</a>
+    <a href="/herramientas/costo-glosas"><b>¿Cuánto le cuestan las glosas?</b>Lo que pierde su clínica al año por glosas y por esperar el pago.</a>
+    <a href="/herramientas/guia-glosas"><b>Guía de respuesta por causa</b>Cómo responder cada tipo de glosa, con qué prueba y cómo evitarla.</a>
+    <a href="/herramientas/plantilla-listado.csv"><b>Plantilla del listado de glosas</b>El formato para pedir su diagnóstico gratis, sin datos de pacientes.</a>
+  </div>
+  <div class="cta">¿Prefiere que lo hagamos por usted? Le hacemos un <b>diagnóstico gratis</b> con su listado de glosas, sin datos de pacientes, en 24 a 48 horas. Escríbanos a <a href="mailto:hola@glosafy.com">hola@glosafy.com</a>.</div>
+  <p class="nota">Herramienta gratuita y orientativa de Glosafy. Funciona dentro de su navegador: no envía ni guarda ningún dato. No es asesoría legal.</p>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://glosafy.com/herramientas/validador-rips">
+<style>@font-face{font-family:"Space Grotesk";src:url("/fonts/SpaceGrotesk-latin.woff2") format("woff2");font-weight:500 700;font-display:swap}@font-face{font-family:"DM Sans";src:url("/fonts/DMSans-latin.woff2") format("woff2");font-weight:400 700;font-display:swap}.marca a{color:inherit;text-decoration:none}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validador de RIPS · Glosafy</title>
+<meta name="description" content="Revise su RIPS en JSON antes de enviarlo al Ministerio, sin subir el archivo.">
+<style>
+:root { --navy:#13263B; --cream:#F5F3EE; --paper:#FFFDF8; --teal:#17735E; --mint:#EAF0EC; --orange:#C4621F;
+        --muted:#5F6B76; --line:#DCD8CE; --ok:#17735E; --mal:#B4471A; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --navy:#E8EDF2; --cream:#0F1A26; --paper:#152333; --teal:#4FB89A; --mint:#1C3140;
+        --orange:#F0955A; --muted:#A3AFBB; --line:#2A3B4D; --ok:#4FB89A; --mal:#F0955A; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--cream); color:var(--navy); font:16px/1.55 "DM Sans", system-ui, Arial, sans-serif; }
+main { max-width:680px; margin:0 auto; padding:32px 16px 56px; }
+.marca { font:700 22px "Space Grotesk", system-ui, Arial, sans-serif; color:var(--teal); }
+h1 { font:700 28px/1.2 "Space Grotesk", system-ui, Arial, sans-serif; margin:16px 0 6px; }
+.sub { color:var(--muted); margin:0 0 18px; }
+.tarjeta { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:20px; margin-top:16px; }
+label { display:block; font-weight:600; margin:12px 0 6px; }
+label small { font-weight:400; color:var(--muted); }
+input[type=date] { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:var(--cream);
+                   color:var(--navy); font:inherit; }
+.res { display:grid; gap:10px; }
+.fila { border-left:4px solid var(--teal); background:var(--mint); border-radius:8px; padding:12px 14px; }
+.fila.mal { border-left-color:var(--mal); }
+.fila b { display:block; font-size:18px; }
+.fila span { color:var(--muted); font-size:14px; }
+.cta { background:var(--navy); color:var(--cream); border-radius:14px; padding:18px 20px; margin-top:16px; }
+.cta a { color:inherit; font-weight:700; }
+.nota { color:var(--muted); font-size:13px; margin-top:18px; }
+
+nav.herr { display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 0; font-size:14px; }
+nav.herr a { color:var(--teal); text-decoration:none; border:1px solid var(--line); border-radius:99px; padding:4px 12px; background:var(--paper); }
+.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px; margin-top:16px; }
+.grid a { display:block; text-decoration:none; color:inherit; background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px; }
+.grid a b { display:block; font-size:18px; color:var(--teal); margin-bottom:4px; }
+input[type=number], input[type=file] { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:var(--cream); color:var(--navy); font:inherit; }
+table { width:100%; border-collapse:collapse; font-size:14px; } th, td { text-align:left; padding:7px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+h2 { font:700 20px "Space Grotesk", system-ui, Arial, sans-serif; margin:26px 0 8px; }
+details { background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin:10px 0; }
+summary { font-weight:700; cursor:pointer; } details p, details li { color:var(--navy); }
+</style>
+</head>
+<body>
+<main>
+  <div class="marca"><a href="/" aria-label="Glosafy, inicio">Glosafy</a></div>
+  <nav class="herr"><a href="/herramientas">Todas</a><a href="/herramientas/calculadora">Plazos</a><a href="/herramientas/validador-rips">Validador de RIPS</a><a href="/herramientas/costo-glosas">Costo de las glosas</a><a href="/herramientas/guia-glosas">Guía de respuesta</a></nav>
+
+  <h1>Validador de RIPS</h1>
+  <p class="sub">Revise su RIPS en JSON antes de enviarlo al Ministerio. Desde la Res. 948 de 2026, sin el código de validación (CUV) la factura no se puede radicar. <b>El archivo no sale de su computador.</b></p>
+  <div class="tarjeta">
+    <label for="archivo">Archivo RIPS (.json)</label>
+    <input type="file" id="archivo" accept=".json,application/json">
+  </div>
+  <div class="tarjeta"><div class="res" id="resultado"><div class="fila"><span>Seleccione un archivo para revisarlo.</span></div></div></div>
+  <p class="nota">Revisa la estructura, los campos obligatorios, el largo del documento del usuario, los formatos de fechas y valores y que los diagnósticos relacionados no repitan el principal ni se repitan entre sí. La validación oficial es la del Mecanismo Único de Validación del Ministerio.</p>
+  <div class="cta">¿Prefiere que lo hagamos por usted? Le hacemos un <b>diagnóstico gratis</b> con su listado de glosas, sin datos de pacientes, en 24 a 48 horas. Escríbanos a <a href="mailto:hola@glosafy.com">hola@glosafy.com</a>.</div>
+  <p class="nota">Herramienta gratuita y orientativa de Glosafy. Funciona dentro de su navegador: no envía ni guarda ningún dato. No es asesoría legal.</p>
+</main>
+<script id="validador">
+// Reglas orientativas del RIPS JSON (Res. 948 de 2026). La validación oficial es la del MUV del Ministerio.
+const TIPOS = {
+  consultas: { codigo: "codConsulta", fecha: "fechaInicioAtencion", valor: "vrServicio" },
+  procedimientos: { codigo: "codProcedimiento", fecha: "fechaInicioAtencion", valor: "vrServicio" },
+  urgencias: { fecha: "fechaInicioAtencion" },
+  hospitalizacion: { fecha: "fechaInicioAtencion" },
+  recienNacidos: { fecha: "fechaNacimiento" },
+  medicamentos: { codigo: "codTecnologiaSalud", fecha: "fechaDispensAdmon", valor: "vrServicio" },
+  otrosServicios: { codigo: "codTecnologiaSalud", fecha: "fechaSuministroTecnologia", valor: "vrServicio" },
+};
+const FECHA = /^\d{4}-\d{2}-\d{2}( \d{2}:\d{2})?$/;
+function vacio(v) { return v === undefined || v === null || String(v).trim() === ""; }
+function validarRips(datos) {
+  const h = [];
+  const add = (nivel, donde, mensaje) => h.push({ nivel, donde, mensaje });
+  if (!datos || typeof datos !== "object" || Array.isArray(datos)) { add("RECHAZO", "archivo", "No es un RIPS en JSON (se esperaba un objeto)."); return { hallazgos: h, servicios: 0, total: 0 }; }
+  if (vacio(datos.numDocumentoIdObligado)) add("RECHAZO", "cabecera", "Falta numDocumentoIdObligado (NIT del prestador).");
+  if (vacio(datos.numFactura) && vacio(datos.numNota)) add("RECHAZO", "cabecera", "Falta numFactura.");
+  const usuarios = Array.isArray(datos.usuarios) ? datos.usuarios : [];
+  if (!usuarios.length) add("RECHAZO", "cabecera", "El RIPS no trae usuarios.");
+  let servicios = 0, total = 0;
+  usuarios.forEach((u, i) => {
+    const donde = `usuario ${u.consecutivo ?? i + 1}`;
+    ["tipoDocumentoIdentificacion", "numDocumentoIdentificacion", "tipoUsuario", "fechaNacimiento", "codSexo"].forEach((c) => {
+      if (vacio(u[c])) add("RECHAZO", donde, `Falta ${c}.`);
+    });
+    const doc = String(u.numDocumentoIdentificacion ?? "").trim();
+    if (doc && (doc.length < 4 || doc.length > 20)) add("RECHAZO", donde, `El documento tiene ${doc.length} caracteres; debe tener entre 4 y 20.`);
+    if (!vacio(u.fechaNacimiento) && !FECHA.test(String(u.fechaNacimiento))) add("REVISAR", donde, "fechaNacimiento no tiene formato AAAA-MM-DD.");
+    const sv = u.servicios || {};
+    Object.keys(TIPOS).forEach((tipo) => (Array.isArray(sv[tipo]) ? sv[tipo] : []).forEach((s, j) => {
+      servicios++;
+      const reg = `${donde} · ${tipo} ${s.consecutivo ?? j + 1}`;
+      const t = TIPOS[tipo];
+      if (vacio(s.codPrestador)) add("RECHAZO", reg, "Falta codPrestador.");
+      if (t.codigo && vacio(s[t.codigo])) add("RECHAZO", reg, `Falta ${t.codigo}.`);
+      if (vacio(s[t.fecha])) add("RECHAZO", reg, `Falta ${t.fecha}.`);
+      else if (!FECHA.test(String(s[t.fecha]))) add("REVISAR", reg, `${t.fecha} no tiene formato AAAA-MM-DD HH:MM.`);
+      if (t.valor) {
+        const v = s[t.valor];
+        if (vacio(v)) add("RECHAZO", reg, `Falta ${t.valor}.`);
+        else if (typeof v === "string" && v.includes(",")) add("REVISAR", reg, `${t.valor} usa coma: el separador decimal oficial es el punto.`);
+        else if (isNaN(Number(v)) || Number(v) < 0) add("RECHAZO", reg, `${t.valor} no es un valor numérico válido.`);
+        else total += Number(v);
+      }
+      ["", "E"].forEach((suf) => {
+        const principal = String(s["codDiagnosticoPrincipal" + suf] ?? "").trim();
+        const vistos = {};
+        Object.keys(s).filter((k) => new RegExp(`^codDiagnosticoRelacionado${suf}\\d?$`).test(k)).sort().forEach((k) => {
+          const cod = String(s[k] ?? "").trim();
+          if (!cod) return;
+          if (principal && cod === principal) add("RECHAZO", reg, `${k} repite el diagnóstico principal ${principal} (reglas RVC086 a RVC089).`);
+          else if (vistos[cod]) add("RECHAZO", reg, `${k} repite el diagnóstico de ${vistos[cod]} (${cod}).`);
+          vistos[cod] = vistos[cod] || k;
+        });
+      });
+    }));
+  });
+  if (usuarios.length && !servicios) add("RECHAZO", "servicios", "Ningún usuario trae servicios.");
+  return { hallazgos: h, servicios, total };
+}
+</script>
+<script>
+const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+document.getElementById("archivo").addEventListener("change", async (e) => {
+  const f = e.target.files[0]; if (!f) return;
+  const out = document.getElementById("resultado");
+  let datos;
+  try { datos = JSON.parse(await f.text()); } catch (err) { out.innerHTML = `<div class="fila mal"><b>El archivo no es un JSON válido</b><span>${esc(err.message)}</span></div>`; return; }
+  const r = validarRips(datos);
+  const rechazos = r.hallazgos.filter((x) => x.nivel === "RECHAZO").length;
+  const encabezado = rechazos
+    ? `<div class="fila mal"><b>${rechazos} problema(s) que el Ministerio probablemente rechaza</b><span>${r.servicios} servicios revisados · total vrServicio $${Math.round(r.total).toLocaleString("es-CO")}</span></div>`
+    : `<div class="fila"><b>Sin problemas de rechazo en las reglas revisadas</b><span>${r.servicios} servicios revisados · total vrServicio $${Math.round(r.total).toLocaleString("es-CO")}. Compárelo con el total de la factura.</span></div>`;
+  out.innerHTML = encabezado + r.hallazgos.slice(0, 200).map((x) => `<div class="fila${x.nivel === "RECHAZO" ? " mal" : ""}"><b>${esc(x.mensaje)}</b><span>${esc(x.nivel === "RECHAZO" ? "Rechazo probable" : "Revisar")} · ${esc(x.donde)}</span></div>`).join("");
+});
+</script>
+</body>
+</html>

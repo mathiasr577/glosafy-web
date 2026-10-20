@@ -1,0 +1,3 @@
+factura;pagador;fecha_radicacion;fecha_glosa;fecha_respuesta;codigo_glosa;descripcion;valor_glosado;valor_aceptado;alego_extemporaneidad;estado;valor_recuperado
+FEV0001;EPS Ejemplo;2026-07-01;2026-08-12;2026-08-20;TA0201;Mayor valor cobrado;250000;0;no;RATIFICADA;0
+FEV0002;EPS Ejemplo;2026-07-03;2026-07-21;;SO0101;Falta soporte;120000;;;EN TRAMITE;

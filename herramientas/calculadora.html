@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://glosafy.com/herramientas/calculadora">
+<style>@font-face{font-family:"Space Grotesk";src:url("/fonts/SpaceGrotesk-latin.woff2") format("woff2");font-weight:500 700;font-display:swap}@font-face{font-family:"DM Sans";src:url("/fonts/DMSans-latin.woff2") format("woff2");font-weight:400 700;font-display:swap}.marca a{color:inherit;text-decoration:none}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora de plazos de glosas · Glosafy</title>
+<meta name="description" content="Calcule en días hábiles, con los festivos de Colombia, si una glosa llegó fuera de plazo y hasta cuándo puede responderla.">
+<style>
+:root { --navy:#13263B; --cream:#F5F3EE; --paper:#FFFDF8; --teal:#17735E; --mint:#EAF0EC; --orange:#C4621F;
+        --muted:#5F6B76; --line:#DCD8CE; --ok:#17735E; --mal:#B4471A; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --navy:#E8EDF2; --cream:#0F1A26; --paper:#152333; --teal:#4FB89A; --mint:#1C3140;
+        --orange:#F0955A; --muted:#A3AFBB; --line:#2A3B4D; --ok:#4FB89A; --mal:#F0955A; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--cream); color:var(--navy); font:16px/1.55 "DM Sans", system-ui, Arial, sans-serif; }
+main { max-width:680px; margin:0 auto; padding:32px 16px 56px; }
+.marca { font:700 22px "Space Grotesk", system-ui, Arial, sans-serif; color:var(--teal); }
+h1 { font:700 28px/1.2 "Space Grotesk", system-ui, Arial, sans-serif; margin:16px 0 6px; }
+.sub { color:var(--muted); margin:0 0 18px; }
+.tarjeta { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:20px; margin-top:16px; }
+label { display:block; font-weight:600; margin:12px 0 6px; }
+label small { font-weight:400; color:var(--muted); }
+input[type=date] { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:10px; background:var(--cream);
+                   color:var(--navy); font:inherit; }
+.res { display:grid; gap:10px; }
+.fila { border-left:4px solid var(--teal); background:var(--mint); border-radius:8px; padding:12px 14px; }
+.fila.mal { border-left-color:var(--mal); }
+.fila b { display:block; font-size:18px; }
+.fila span { color:var(--muted); font-size:14px; }
+.cta { background:var(--navy); color:var(--cream); border-radius:14px; padding:18px 20px; margin-top:16px; }
+.cta a { color:inherit; font-weight:700; }
+.nota { color:var(--muted); font-size:13px; margin-top:18px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="marca"><a href="/" aria-label="Glosafy, inicio">Glosafy</a></div>
+  <nav class="herr" style="display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0;font-size:14px"><a href="/herramientas">Todas</a><a href="/herramientas/calculadora">Plazos</a><a href="/herramientas/validador-rips">Validador de RIPS</a><a href="/herramientas/costo-glosas">Costo de las glosas</a><a href="/herramientas/guia-glosas">Guía de respuesta</a></nav>
+  <h1>Calculadora de plazos de glosas</h1>
+  <p class="sub">¿La EPS glosó fuera de plazo? ¿Hasta cuándo puede responder? Calculado en días hábiles, con los festivos de Colombia.</p>
+
+  <div class="tarjeta">
+    <label for="radicacion">Fecha de radicación de la factura</label>
+    <input type="date" id="radicacion">
+    <label for="glosa">Fecha en que recibió la glosa <small>(opcional)</small></label>
+    <input type="date" id="glosa">
+    <label for="respuesta">Fecha en que respondió la glosa <small>(opcional)</small></label>
+    <input type="date" id="respuesta">
+  </div>
+
+  <div class="tarjeta"><div class="res" id="resultado" aria-live="polite"><div class="fila"><span>Escriba la fecha de radicación para empezar.</span></div></div></div>
+
+  <div class="cta">¿Tiene decenas o cientos de glosas? Le hacemos un <b>diagnóstico gratis</b> con su listado de glosas, sin datos
+    de pacientes: cuánto glosaron fuera de plazo, qué respuestas salieron tarde y qué se puede recuperar todavía.
+    Escríbanos a <a href="mailto:hola@glosafy.com">hola@glosafy.com</a>.</div>
+
+  <p class="nota">Cálculo orientativo con base en el artículo 57 de la Ley 1438 de 2011 (20 días hábiles para glosar, 15 para responder
+    y 10 para que el pagador decida), contados desde el día siguiente y sin sábados, domingos ni festivos. El contrato o la norma
+    aplicable pueden fijar otros plazos. No es asesoría legal. Esta página no envía ni guarda ningún dato.</p>
+</main>
+
+<script id="motor">
+// Festivos de Colombia (Ley 51 de 1983): mismo cálculo que el motor de Glosafy.
+const FIJOS = [[1, 1], [5, 1], [7, 20], [8, 7], [12, 8], [12, 25]];
+const TRASLADABLES = [[1, 6], [3, 19], [6, 29], [8, 15], [10, 12], [11, 1], [11, 11]];
+const DIA = 86400000;
+const fecha = (a, m, d) => new Date(Date.UTC(a, m - 1, d));
+const iso = (f) => f.toISOString().slice(0, 10);
+const sumarDias = (f, n) => new Date(f.getTime() + n * DIA);
+function pascua(anio) {
+  const a = anio % 19, b = Math.floor(anio / 100), c = anio % 100, d = Math.floor(b / 4), e = b % 4;
+  const f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const x = h + l - 7 * m + 114;
+  return fecha(anio, Math.floor(x / 31), (x % 31) + 1);
+}
+function lunesSiguiente(f) { return sumarDias(f, (8 - f.getUTCDay()) % 7); }
+const cache = {};
+function festivos(anio) {
+  if (cache[anio]) return cache[anio];
+  const s = new Set(FIJOS.map(([m, d]) => iso(fecha(anio, m, d))));
+  TRASLADABLES.forEach(([m, d]) => s.add(iso(lunesSiguiente(fecha(anio, m, d)))));
+  const p = pascua(anio);
+  [-3, -2, 43, 64, 71].forEach((n) => s.add(iso(sumarDias(p, n))));
+  return (cache[anio] = s);
+}
+function esHabil(f) { const d = f.getUTCDay(); return d !== 0 && d !== 6 && !festivos(f.getUTCFullYear()).has(iso(f)); }
+function sumarDiasHabiles(desde, n) { let f = desde, c = 0; while (c < n) { f = sumarDias(f, 1); if (esHabil(f)) c++; } return f; }
+function diasHabilesEntre(desde, hasta) {
+  if (hasta < desde) return -diasHabilesEntre(hasta, desde);
+  let f = desde, t = 0; while (f < hasta) { f = sumarDias(f, 1); if (esHabil(f)) t++; } return t;
+}
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const leer = (id) => { const v = $(id).value; if (!v) return null; const [a, m, d] = v.split("-").map(Number); return fecha(a, m, d); };
+const larga = (f) => f.toLocaleDateString("es-CO", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+const fila = (titulo, detalle, mal) => `<div class="fila${mal ? " mal" : ""}"><b>${titulo}</b><span>${detalle}</span></div>`;
+function calcular() {
+  const rad = leer("radicacion"), glosa = leer("glosa"), resp = leer("respuesta");
+  const ahora = new Date(), hoy = fecha(ahora.getFullYear(), ahora.getMonth() + 1, ahora.getDate());
+  if (!rad) { $("resultado").innerHTML = fila("", "Escriba la fecha de radicación para empezar."); return; }
+  const limiteGlosa = sumarDiasHabiles(rad, 20);
+  const out = [fila(`La EPS podía glosar hasta el ${larga(limiteGlosa)}`, "20 días hábiles desde el día siguiente a la radicación.")];
+  if (glosa) {
+    if (glosa > limiteGlosa) {
+      out.push(fila(`La glosa llegó ${diasHabilesEntre(limiteGlosa, glosa)} día(s) hábil(es) tarde`,
+        "Es extemporánea: la respuesta puede pedir que se levante sin discutir el fondo. Debe alegarse dentro del plazo de respuesta.", true));
+    } else {
+      out.push(fila("La glosa llegó dentro del plazo", "Hay que responderla en el fondo, con las pruebas de cada ítem."));
+    }
+    const limiteResp = sumarDiasHabiles(glosa, 15);
+    if (resp) {
+      out.push(resp > limiteResp
+        ? fila(`La respuesta salió ${diasHabilesEntre(limiteResp, resp)} día(s) hábil(es) tarde`, `El plazo para responder vencía el ${larga(limiteResp)}.`, true)
+        : fila("La respuesta salió a tiempo", `El plazo para responder vencía el ${larga(limiteResp)}.`));
+      const limiteDecision = sumarDiasHabiles(resp, 10);
+      out.push(fila(`El pagador debe decidir a más tardar el ${larga(limiteDecision)}`,
+        hoy > limiteDecision ? "Ya venció: pida la decisión por escrito y evalúe la conciliación ante la Supersalud." : "10 días hábiles desde la respuesta.",
+        hoy > limiteDecision));
+    } else {
+      const quedan = diasHabilesEntre(hoy, limiteResp);
+      out.push(quedan >= 0
+        ? fila(`Puede responder hasta el ${larga(limiteResp)}`, `Le quedan ${quedan} día(s) hábil(es).`, quedan <= 3)
+        : fila(`El plazo para responder venció el ${larga(limiteResp)}`, "Evalúe con su asesor si hay otra vía, como la conciliación.", true));
+    }
+  }
+  $("resultado").innerHTML = out.join("");
+}
+["radicacion", "glosa", "respuesta"].forEach((id) => $(id).addEventListener("input", calcular));
+</script>
+</body>
+</html>
